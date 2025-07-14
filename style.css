@@ -1,368 +1,372 @@
-/* Custom styles for elements not easily achievable with direct Tailwind classes, or for fine-tuning */
-        body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at center, #0a0a0a 0%, #1a1e2c 100%);
-            background-attachment: fixed;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1a202c; /* Dark background */
+    color: #e2e8f0; /* Light text */
+}
+.container {
+    max-width: 1400px;
+}
+.btn {
+    @apply font-bold py-2 px-4 rounded-lg transition-all duration-200;
+}
+.btn-primary {
+    @apply bg-yellow-500 text-gray-900 hover:bg-yellow-400 shadow-lg hover:shadow-xl;
+}
+.btn-secondary {
+    @apply bg-gray-600 text-white hover:bg-gray-500 shadow-lg hover:shadow-xl;
+}
+#matchSetup {
+    box-shadow: inset -3px 9px 108px 61px rgb(12 4 108 / 46%);
+    border: 1px solid #0037f1;
+}
+/* Animated Background Elements */
+.animated-blob {
+    position: absolute;
+    background: radial-gradient(circle, var(--color-start), var(--color-end));
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    animation: float-and-fade var(--duration) ease-in-out infinite alternate var(--delay);
+    z-index: -100;
+    pointer-events: none;
+}
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the vertical scrollbar */
+    height: 12px; /* Height of the horizontal scrollbar */
+}
 
-        /* Animated Background Elements */
-        .animated-blob {
-            position: absolute;
-            background: radial-gradient(circle, var(--color-start), var(--color-end));
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.3;
-            animation: float-and-fade var(--duration) ease-in-out infinite alternate var(--delay);
-            z-index: -1;
-            pointer-events: none;
-        }
+::-webkit-scrollbar-track {
+    background: #2d004d; /* Dark purple color for the track */
+    border-radius: 10px;
+}
 
-        /* Keyframes for floating and fading animation */
-        @keyframes float-and-fade {
-            0% {
-                transform: translate(var(--x-start), var(--y-start)) scale(var(--scale-start));
-                opacity: 0.2;
-            }
-            50% {
-                transform: translate(var(--x-mid), var(--y-mid)) scale(var(--scale-mid));
-                opacity: 0.4;
-            }
-            100% {
-                transform: translate(var(--x-end), var(--y-end)) scale(var(--scale-end));
-                opacity: 0.2;
-            }
-        }
+::-webkit-scrollbar-thumb {
+    background-color: #3958af; /* Electric blue for the thumb */
+    border-radius: 10px;
+    border: 3px solid #2d004d; /* Border around the thumb, matching the track color */
+}
 
-        /* Custom scrollbar styles */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #1a1e2c;
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #4a5568;
-            border-radius: 10px;
-            border: 2px solid #1a1e2c;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #6a748c;
-        }
+/* For Firefox */
+html {
+    scrollbar-color: #3958af #2d004d; /* thumb color track color */
+    scrollbar-width: thin; /* auto, thin, or none */
+}
 
-        /* Message Box animation */
-        .battle-message {
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-            pointer-events: none;
-        }
-        .battle-message.show {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
+#matchLog {
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #1a002e; /* Even darker purple for specific elements */
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #6890ff; /* Slightly darker electric blue */
+        border: 2px solid #1a002e;
+    }
+    scrollbar-color: #6890ff #1a002e;
+}
 
-        /* Spinner animation */
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
+/* Glassmorphism effect for the roster container */
+#rosterContainer {
+    background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle light border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Shadow for depth */
+}
 
-        /* Glassmorphism Effect */
-        .glassmorphism-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
-        }
+/* Responsive adjustments to prevent horizontal scrolling */
+.wrestler-roster-card-item {
+    flex-shrink: 0; /* Prevent cards from shrinking too much */
+    width: calc(33.333% - 1rem); /* Adjust width for 3 columns on larger screens, accounting for gap */
+    margin-bottom: 1rem; /* Add some vertical spacing */
+}
 
-        .framer-button {
-            padding: 1rem 2rem;
-            border-radius: 9999px;
-            font-weight: 800;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            border: none;
-        }
+@media (max-width: 1024px) { /* Adjust for medium screens (e.g., tablets) */
+    .wrestler-roster-card-item {
+        width: calc(50% - 1rem); /* 2 columns */
+    }
+}
 
-        .framer-button-primary {
-            background: linear-gradient(to right, #cbceff, #F97316);
-            color: #1F2937;
-        }
+@media (max-width: 768px) { /* Adjust for small screens (e.g., mobile) */
+    .wrestler-roster-card-item {
+        width: calc(100% - 1rem); /* 1 column */
+    }
+}
+.wrestler-roster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Space between cards */
+    justify-content: center; /* Center cards when fewer than full row */
+}
+#rosterContainer {
+    background-color: rgb(53 0 76 / 23%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset -3px 9px 32px 20px rgba(0, 0, 0, 0.37);
+}
+/* Shiny CTA button */
+:root {
+  --shiny-cta-bg: #000000;
+  --shiny-cta-bg-subtle: #1a1818;
+  --shiny-cta-fg: #ffffff;
+  --shiny-cta-highlight: blue;
+  --shiny-cta-highlight-subtle: #8484ff;
+}
 
-        .framer-button-primary:hover {
-            box-shadow: 0 8px 25px rgba(250, 204, 21, 0.7);
-            transform: translateY(-2px);
-        }
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --gradient-angle-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --gradient-percent {
+  syntax: "<percentage>";
+  initial-value: 5%;
+  inherits: false;
+}
+@property --gradient-shine {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: false;
+}
 
-        .framer-button-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+.shiny-frame {
+  --animation: gradient-angle linear infinite;
+  --duration: 3s;
+  --shadow-size: 2px;
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  outline-offset: 4px;
+  /* padding: 1.25rem 2.5rem; */
+  font-family: inherit;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: 360px;
+  color: var(--shiny-cta-fg);
+  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box, conic-gradient(from calc(var(--gradient-angle) - var(--gradient-angle-offset)), transparent, var(--shiny-cta-highlight) var(--gradient-percent), var(--gradient-shine) calc(var(--gradient-percent) * 2), var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3), transparent calc(var(--gradient-percent) * 4)) border-box;
+  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+}
 
-        .framer-button-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #e2e8f0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+.shiny-cta {
+  --animation: gradient-angle linear infinite;
+  --duration: 3s;
+  --shadow-size: 2px;
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  outline-offset: 4px;
+  padding: 1.25rem 2.5rem;
+  font-family: inherit;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: 360px;
+  color: var(--shiny-cta-fg);
+  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box, conic-gradient(from calc(var(--gradient-angle) - var(--gradient-angle-offset)), transparent, var(--shiny-cta-highlight) var(--gradient-percent), var(--gradient-shine) calc(var(--gradient-percent) * 2), var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3), transparent calc(var(--gradient-percent) * 4)) border-box;
+  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+}
+.shiny-cta::before, .shiny-cta::after,
+.shiny-cta span::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+}
+.shiny-cta:active {
+  translate: 0 1px;
+}
 
-        .framer-button-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
+/* Dots pattern */
+.shiny-cta::before {
+  --size: calc(100% - var(--shadow-size) * 3);
+  --position: 2px;
+  --space: calc(var(--position) * 2);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle at var(--position) var(--position), white calc(var(--position) / 4), transparent 0) padding-box;
+  background-size: var(--space) var(--space);
+  background-repeat: space;
+  mask-image: conic-gradient(from calc(var(--gradient-angle) + 45deg), black, transparent 10% 90%, black);
+  border-radius: inherit;
+  opacity: 0.4;
+  z-index: -1;
+}
 
-        .framer-button-secondary:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+/* Inner shimmer */
+.shiny-cta::after {
+  --animation: shimmer linear infinite;
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(-50deg, transparent, var(--shiny-cta-highlight), transparent);
+  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+  opacity: 0.6;
+}
 
-        .framer-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
+.shiny-cta span {
+  z-index: 1;
+}
+.shiny-cta span::before {
+  --size: calc(100% + 1rem);
+  width: var(--size);
+  height: var(--size);
+  box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+  opacity: 0;
+}
 
-        /* Wrestler card specific styles */
-        .wrestler-card {
-            background-color: #001532; /* Darker blue background for cards */
-            border: 2px solid transparent; /* Default transparent border */
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            cursor: grab; /* Indicate draggable */
-            user-select: none; /* Prevent text selection during drag */
-        }
-        .wrestler-card:hover {
-            border-color: #cbceff; /* Yellow border on hover */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-        }
-        .wrestler-card.dragging {
-            opacity: 0.6;
-            cursor: grabbing;
-        }
+/* Animate */
+.shiny-cta {
+  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+  transition: var(--transition);
+  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
+}
+.shiny-cta, .shiny-cta::before, .shiny-cta::after {
+  animation: var(--animation) var(--duration), var(--animation) calc(var(--duration) / 0.4) reverse paused;
+  animation-composition: add;
+}
+.shiny-cta span::before {
+  transition: opacity var(--transition);
+  animation: calc(var(--duration) * 1.5) breathe linear infinite;
+}
 
-        /* Drop zone specific styles */
-        .drop-zone {
-            background: rgba(255, 255, 255, 0.05);
-            border: 3px dashed #4A5568; /* Dashed gray border */
-            transition: all 0.2s ease-in-out;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        .drop-zone.drag-over {
-            border-color: #cbceff; /* Yellow border on drag over */
-            box-shadow: inset 0 0 20px rgba(250, 204, 21, 0.5); /* Yellow inner glow */
-            background: rgba(250, 204, 21, 0.08); /* Light yellow background */
-        }
-        .drop-zone.has-wrestler {
-            border-style: solid;
-            border-color: #F97316; /* Orange solid border when wrestler is dropped */
-            background: rgba(249, 115, 22, 0.15); /* Light orange background */
-            display: flex; /* Ensure flexbox for content alignment */
-            align-items: center; /* Center content vertically */
-            justify-content: center; /* Center content horizontally */
-            flex-direction: column; /* Stack content vertically */
-            padding: 0.5rem; /* Reduced padding for selected cards */
-        }
+.shiny-cta:is(:hover, :focus-visible) {
+  --gradient-percent: 20%;
+  --gradient-angle-offset: 95deg;
+  --gradient-shine: var(--shiny-cta-highlight-subtle);
+}
+.shiny-cta:is(:hover, :focus-visible), .shiny-cta:is(:hover, :focus-visible)::before, .shiny-cta:is(:hover, :focus-visible)::after {
+  animation-play-state: running;
+}
+.shiny-cta:is(:hover, :focus-visible) span::before {
+  opacity: 1;
+}
 
-        /* Styles for wrestler cards within dropzones */
-        .drop-zone .wrestler-card-in-slot {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 100%; /* Take full width of slot */
-            height: 100%; /* Take full height of slot */
-            justify-content: center;
-            background: none; /* Remove background */
-            box-shadow: none; /* Remove shadow */
-            padding: 0; /* No padding on the inner card */
-        }
+@keyframes gradient-angle {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+@keyframes shimmer {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes breathe {
+  from, to {
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+}
 
-        .drop-zone .wrestler-card-in-slot img {
-            width: 64px; /* Smaller image size */
-            height: 64px; /* Smaller image size */
-            border-width: 2px; /* Thinner border for image */
-            margin-bottom: 0.25rem; /* Small margin */
-        }
+/* Keyframes for floating and fading animation */
+@keyframes float-and-fade {
+    0% {
+        transform: translate(var(--x-start), var(--y-start)) scale(var(--scale-start));
+        opacity: 0.2;
+    }
+    50% {
+        transform: translate(var(--x-mid), var(--y-mid)) scale(var(--scale-mid));
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(var(--x-end), var(--y-end)) scale(var(--scale-end));
+        opacity: 0.2;
+    }
+}
 
-        .drop-zone .wrestler-card-in-slot p {
-            font-size: 0.875rem; /* text-sm */
-            line-height: 1.25rem; /* text-sm */
-            margin-top: 0;
-            margin-bottom: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            max-width: 90%; /* Ensure name fits */
-        }
+/* RGB effect */
+.glow-on-hover {
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+}
 
-        /* Wrestler image border */
-        .wrestler-image-border {
-            border-color: #cbceff; /* yellow-400 */
-        }
+.glow-on-hover:before {
+  content: "";
+  background: linear-gradient(45deg, red, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, red);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
 
-        /* VS text for match setup */
-        .vs-text {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #cbceff; /* yellow-400 */
-            text-shadow: 0px 0px 15px rgba(250, 204, 21, 0.8);
-        }
+.glow-on-hover:active:after {
+  background: transparent;
+}
 
-        /* Stat bars */
-        .stat-bar-bg {
-            background-color: #4A5568; /* bg-gray-600 */
-        }
-        .stat-bar-fill {
-            background-color: #cbceff; /* bg-yellow-400 */
-            transition: width 0.3s ease-out;
-        }
-        .stat-bar-strength { background-color: #EF4444; } /* red-500 */
-        .stat-bar-technical { background-color: #3B82F6; } /* blue-500 */
-        .stat-bar-brawling { background-color: #F97316; } /* orange-500 */
-        .stat-bar-stamina { background-color: #10B981; } /* green-500 */
-        .stat-bar-aerial { background-color: #A855F7; } /* purple-500 */
-        .stat-bar-toughness { background-color: #6B7280; } /* gray-500 */
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
 
+.glow-on-hover:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
 
-        /* Styles for the wrestling ring effect */
-        #battle-results-section-content { /* Renamed from #battle-results-section for clarity within the modal */
-            /* Keep original glassmorphism styles */
-            display: flex; /* Use flex to center the inner ring-mat-container */
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem; /* This will be the "apron" area around the ring */
-            box-sizing: border-box; /* Include padding in element's total width and height */
-        }
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
 
-        #ring-mat-container { /* New div inside battle-results-section for the mat and ropes */
-            background-color: #0d111b; /* A darker, almost black for the mat */
-            border-radius: 1rem; /* Rounded corners for the mat */
-            padding: 2.5rem; /* Generous padding inside the ropes, creating space for content */
-            width: 100%; /* Make it fill the parent #battle-results-section-content */
-            height: 100%; /* Make it fill the parent #battle-results-section-content */
-            position: relative;
-            z-index: 1; /* Ensure it's above background elements */
-            
-            /* Layered inset shadows for ring ropes */
-            box-shadow: 
-                inset 0 0 0 5px #cbceff, /* Yellow outer rope */
-                inset 0 0 0 10px #F97316, /* Orange middle rope */
-                inset 0 0 0 15px #EF4444; /* Red inner rope */
-        }
+.grad-box {
+  display: flex;
+  align-items: center;
+  //width: 50vw;
+  width: 90%;
+  margin: auto;
+  max-width: 22em;
 
-        /* Adjust the inner content containers to ensure they fit within the new padding */
-        #ring-mat-container > .flex {
-            width: 100%;
-            box-sizing: border-box;
-        }
+  position: relative;
+  padding: 30% 2em;
+  box-sizing: border-box;
 
-        /* Modal specific styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        }
-
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            overflow-y: auto;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-
-        .modal-overlay.show .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .modal-close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 2.5rem;
-            height: 2.5rem;
-            font-size: 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1001;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        .modal-close-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        /* Avatar selection styles */
-        .avatar-option {
-            border: 3px solid transparent;
-            border-radius: 50%;
-            transition: border-color 0.2s ease;
-            cursor: pointer;
-        }
-        .avatar-option.selected {
-            border-color: #F97316; /* Orange border for selected avatar */
-            box-shadow: 0 0 15px rgba(249, 115, 22, 0.7);
-        }
-
-        /* Manager card styles */
-        .manager-card {
-            background-color: #1a1e2c;
-            border: 1px solid #3b4252;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .manager-card:hover:not(.hired) {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-        .manager-card.hired {
-            border-color: #10b981; /* Green border for hired manager */
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.7);
-            cursor: default;
-            opacity: 0.9;
-        }
-        .manager-card button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+  $border: 5px;
+  color: #FFF;
+  background: #000;
+  background-clip: padding-box; /* !importanté */
+  border: solid $border transparent; /* !importanté */
+  border-radius: 1em;
+}
+.grad-box:before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -$border; /* !importanté */
+    border-radius: inherit; /* !importanté */
+    background: linear-gradient(to right, red, orange);
+}
